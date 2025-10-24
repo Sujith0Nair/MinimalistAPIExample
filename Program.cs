@@ -4,4 +4,7 @@ var app = builder.Build();
 app.MapGet("/", () => "Hello World!");
 app.MapGet("/anotherroute", () => $"Hello from another route!");
 
-app.Run("http://0.0.0.0:8080");
+var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+var url = app.Environment.IsDevelopment() ? null : $"https://0.0.0.0:{port}";
+
+app.Run(url);
